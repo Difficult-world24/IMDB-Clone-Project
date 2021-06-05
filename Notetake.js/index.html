@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteTake | 2021</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<style>
+    html,
+    body {
+        font-family: 'Montserrat', Verdana !important;
+    }
+
+
+    section.container .card {
+        width: 25em;
+    }
+
+    .card .card-text {
+        height: 4em;
+        overflow: hidden;
+    }
+
+    #formContainer {
+        width: 70%;
+    }
+
+    @media (max-width:768px) {
+        div#formContainer {
+            width: 100%;
+        }
+
+        section.container .card {
+            width: 23em;
+        }
+    }
+</style>
+
+<body>
+
+
+    <!-- Title -->
+    <h1 class="display-1 text-center my-4">NoteTake &#9998;</h1>
+
+
+
+
+    <!-- FormContainer Starts -->
+    <div class="container-fluid p-4 rounded-2 border  my-5" id="formContainer">
+        <form action="#" id="text-area">
+            <div class="my-2">
+                <label for="note-title" class="form-label fs-5">Title</label>
+
+                <input required type="text" class="form-control p-2" name="title" placeholder="Grocery List"
+                    id="note-title" autocomplete="off">
+            </div>
+            <div class="my-2">
+                <label for="note" class="form-label fs-5">Note</label>
+                <textarea required id="note" rows="5" class="form-control" placeholder="do something"></textarea>
+
+            </div>
+            <button class="btn w-100 btn-primary p-3 fs-5 text-light my-2">Take Note</button>
+        </form>
+    </div>
+    <!-- FormContainer Ends -->
+
+    <!-- Modal Starts-->
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <p class="text">Created:<span class="date text-info"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ends -->
+
+
+
+
+    <!-- Cards Section Starts -->
+    <h2 class="display-5 border-bottom pb-2 border-dark">Notes(<span class="text-primary">0</span>)</h2>
+    <section class="container d-flex flex-column flex-md-row align-items-center justify-content-between p-4"
+        id="cards-sec">
+
+
+    </section>
+    <!-- Cards Section End -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+    <script src="app.js" defer></script>
+</body>
+
+</html>
