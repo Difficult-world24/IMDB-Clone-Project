@@ -43,12 +43,7 @@ function CreateCard(title,note,created){
 
 }
 
-/*
 
-NOTE: The "read more" button will disabled if the paragraph length is less then 18
-
-
-*/
 function showModal(e){
 
     let modalDiv = document.getElementById('myModal')
