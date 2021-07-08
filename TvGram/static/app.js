@@ -1,122 +1,180 @@
-const summaryBtn = document.querySelector('.summbtn')
-const summary = document.querySelector('.summ')
-summaryBtn.addEventListener('click',function(){
-    this.querySelector('img').classList.toggle('icnrote')
-    summary.classList.toggle('d-none')
+import {RequestInfo,RequestSeasonEpisode,RequestSeasons} from './tvgram.js'
+
+
+
+const searchForm = document.querySelector('.input-group')
+const showContainer = document.querySelector('.show-container')
+const btnContainer = document.querySelector('.btns')
+const EpisodeContainer = document.querySelector('.episodes')
+
+
+searchForm.addEventListener('submit',async function(evt){
+	evt.preventDefault()
+	const{showname} = this.elements;
+	let info =  await RequestInfo(showname.value)
+	let seasonsBtn = await RenderSeasonsBtn(info.id)
+
+	showContainer.removeChild(showContainer.firstChild)
+	showContainer.prepend(RenderInfo(info))
+
+	btnContainer.removeChild(btnContainer.firstChild)
+	btnContainer.append(seasonsBtn.buttons)
+
+	EpisodeContainer.removeChild(EpisodeContainer.firstChild)
+	await RenderEpisodes(seasonsBtn.firstSeasonid)
+
+	showname.value = ''
+
+
+})
+
+showContainer.addEventListener('click', function(evt){
+
+    if(evt.target.classList.contains('sbtn')){
+		let spanBtn = showContainer.querySelector('#btnGroupDrop1').querySelector('span');
+		spanBtn.textContent = evt.target.textContent
+
+		//Removing element for EpisodeContainer then appending Episodes element!
+		EpisodeContainer.removeChild(EpisodeContainer.firstChild)
+		RenderEpisodes(evt.target.dataset.sid)
+    }
+	//showing and hiding summary paragraph
+	if(evt.target.classList.contains('summbtn')){
+		evt.target.querySelector('img').classList.toggle('icnrote')
+		showContainer.querySelector('.summ').classList.toggle('d-none')
+	}
 })
 
 
-	async function RequestInfo(showName){
-		//this method is importent it returns whether the is exist or not!
-		console.log('Requesting Show...');
-		try{
-			const ShowRequest = await axios.get('http://api.tvmaze.com/singlesearch/shows',{params:{q:showName}})
-			return ShowRequest.data;
-		}catch(err){
-			throw err;
-		}
-	}
 
-
-	async function RequestSeasons(showID){
-		// if no argument were given then return the array of seasons!
-		console.log("Requesting Seasons...");
-			try{
-			const SeasonsRequest = await axios.get(`http://api.tvmaze.com/shows/${showID}/seasons`)
-			return SeasonsRequest.data;
-		}catch(err){
-			throw err;
-		}
-	}
-
-	async function RequestSeasonEpisode(seasonID){
-		console.log(`Requesting Season Episodes...`);
-			try{
-			const EpisodesRequest = await axios.get(`http://api.tvmaze.com/seasons/${seasonID}/episodes`)
-			return EpisodesRequest.data;
-		}catch(err){
-			throw err;
-		}
-	}
-
-
-
-
-
-async function Requesting(){
-	const itself = await RequestInfo('13rw')
-	console.log(itself);
-	// const seasons = await RequestSeasons(itself.id)
-	// console.log(seasons);
-	// const episode = await RequestSeasonEpisode(seasons[3].id)
-	// console.log(episode);
-}
-
-const data = {
-
-    "id": 36666,
-    "url": "https://www.tvmaze.com/shows/36666/looking-for-alaska",
-    "name": "Looking for Alaska",
-    "type": "Scripted",
-    "language": "English",
-    "genres": [
-        "Drama",
-        "Romance"
-    ],
-    "status": "Ended",
-    "runtime": 60,
-    "averageRuntime": 60,
-    "premiered": "2019-10-18",
-    "officialSite": "https://www.hulu.com/series/looking-for-alaska-de237b2b-f39a-437a-ab5c-610c50298c20",
-    "schedule": {
-        "time": "",
-        "days": []
-    },
-    "rating": {
-        "average": 7.7
-    },
-    "weight": 75,
-    "network": null,
-    "webChannel": {
-        "id": 2,
-        "name": "Hulu",
-        "country": {
-            "name": "United States",
-            "code": "US",
-            "timezone": "America/New_York"
-        }
-    },
-    "dvdCountry": null,
-    "externals": {
-        "tvrage": null,
-        "thetvdb": 359638,
-        "imdb": "tt3829868"
-    },
-    "image": {
-        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/209/523206.jpg",
-        "original": "https://static.tvmaze.com/uploads/images/original_untouched/209/523206.jpg"
-    },
-    "summary": "<p><b>Looking for Alaska</b> thrusts us into the perspective of Miles \"Pudge\" Halter who is done with his safe life at home. His whole life has been one big non-event, and his obsession with famous last words has only made him crave \"the Great Perhaps\" even more (Francois Rabelais, poet). He heads off to the sometimes crazy and anything-but-boring world of Culver Creek Boarding School, and his life becomes the opposite of safe. Because down the hall is Alaska Young. The gorgeous, clever, funny, sexy, self-destructive, screwed up, and utterly fascinating Alaska Young. She is an event unto herself. She pulls Pudge into her world, launches him into the Great Perhaps, and steals his heart. Then. . . After. Nothing is ever the same.</p>",
-    "updated": 1616881125,
-    "_links": {
-        "self": {
-            "href": "https://api.tvmaze.com/shows/36666"
-        },
-        "previousepisode": {
-            "href": "https://api.tvmaze.com/episodes/1665509"
-        }
+ function RenderInfo(data){
+    let textCol = 'text-danger'
+    if(data.status !== 'Ended'){
+        textCol = 'text-success'
     }
+	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found'
+	if(data.image !== null){
+		img = data.image.medium;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+    const dataString = document.createElement('section')
+    dataString.className = 'container border rounded mb-2 p-2'
+     dataString.innerHTML = `
+			<div class="row">
+				<div class="col-md-4 border-end info mb-1">
+					<img src="${img}" alt="showPoster"
+						class="rounded shadow mb-2">
+					<h5 class="card-title mb-0">${data.name}</h5>
+				</div>
+				<div class="col-md font-monospace">
+					<div class="ps-1">
+						<h6 class="mb-0 fs-2">${data.rating.average}/10⭐</h6>
+						<p class="lead">${data.genres}</p>
+					</div>
+					<ul class="list-group-items p-0 mb-1">
+						<li class="list-group-item">Language: <span>${data.language}</span></li>
+						<li class="list-group-item">Status: <span class="${textCol}">${data.status}</span></li>
+						<li class="list-group-item">RunTime: <span>${data.runtime}</span></li>
+						<li class="list-group-item">Premiered: <span>${new Date(data.premiered).toDateString()}</span></li>
+						<li class="list-group-item">Type: <span>${data.type}</span></li>
+					</ul>
+					<button
+						class="btn summbtn btn-dark w-100 mb-2 d-flex justify-content-between align-items-center">Story
+						Summary
+						<img src="assets/expand_more_white_36dp.svg" alt="expand more" class="float-end">
+					</button>
+				</div>
+			</div>
+			<div class="row summ d-none">
+            ${data.summary}
+            </div>
+	
+    `
+	return dataString;
 }
+
+async function RenderSeasonsBtn(showId){
+    let data = await RequestSeasons(showId)
+	//Creating season buttons container
+	let btnGroup = document.createElement('div')
+	btnGroup.className = 'btn-group-vertical ps-2 font-monospace'
+	//making un-ordered list for season no buttons	
+	let ul = document.createElement('ul')
+	ul.className = "dropdown-menu seasons-cont p-1"
+
+    let listItems = '' // Single listiItem String
+    for(let item of data){
+        let li = `
+        <li>
+           <button class="dropdown-item sbtn btn btn-outline-primary mb-2" data-sid="${item.id}">${item.number}</button>
+        </li>
+        `
+        listItems += li;
+    }
+	ul.innerHTML = listItems
+	btnGroup.innerHTML = `
+	<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+				aria-expanded="false">
+				Season <span class="badge bg-dark">1</span>
+			</button>
+	`
+	btnGroup.append(ul)
+	return {'buttons':btnGroup, firstSeasonid:data[0].id}
+}
+
+async function RenderEpisodes(sid){
+    const data = await RequestSeasonEpisode(sid)
+	
+    let dataString = ''
+    for(let item of data){
+
+	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found'
+	if(item.image !== null){
+		img = item.image.medium;
+	}
+		
+    let itemString =`
+    			<div class="card mb-3 p-2">
+				<div class="row g-0 align-items-center border-bottom">
+					<div class="col-md-4">
+						<img src="${img}"
+							class="img-fluid rounded shadow ms-3 mb-3" alt="Show Poster">
+					</div>
+					<div class="col-md-8">
+						<ul class="list-items font-monospace ps-1">
+							<li class="list-group-item">Title: <span>${item.name}</span></li>
+							<li class="list-group-item">First Air: <span>${new Date(item.airdate).toDateString()}</span></li>
+							<li class="list-group-item">Episode: <span>${item.number}</span></li>
+							<li class="list-group-item">Season: <span>${item.season}</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card-body p-1">
+							<p class="card-text">
+							${item.summary}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+    `
+    dataString += itemString;
+    }
+	EpisodeContainer.innerHTML = dataString
+}
+
+
+// function LoadingScreen(time,container,text){
+// 	let dataString = `
+// 		<div class="container rounded d-flex flex-column align-items-center align-middle">
+// 				<img src="assets/1479.gif" alt="">
+// 				<p class="text-center">${text}!</p>
+// 			</div>
+// 	`
+// 	container.innerHTML = dataString
+// 	setTimeout(() => {
+// 		container.innerHTML = ''; 
+// 	}, time);
+// }

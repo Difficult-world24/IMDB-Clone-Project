@@ -12,121 +12,36 @@
 </head>
 
 <body>
-	<div class="container input-group  my-3 font-monospace  mx-auto" style="max-width: 46em;">
-		<input type="text" class="form-control" placeholder="Mr. Robot">
-		<button class="btn btn-dark" type="button" id="srchBtn"><img src="assets/searchicon.svg"
-				alt="searchIcon"></button>
-	</div>
-	<main class="container mb-4 rounded border p-1" style="max-width: 46em;">
-		<section class="container border rounded mb-2 p-2">
-			<div class="row">
-				<div class="col-md-4 border-end info mb-1">
-					<img src="https://static.tvmaze.com/uploads/images/medium_portrait/209/523206.jpg" alt="showPoster"
-						class="rounded shadow mb-2">
-					<h5 class="card-title mb-0">Looking For Alaska</h5>
-					<p>(2019)</p>
-				</div>
-				<div class="col-md font-monospace">
-					<div class="ps-1">
-						<h6 class="mb-0 fs-2">7.4/10⭐</h6>
-						<p class="lead">Drama,Romance</p>
-					</div>
-					<ul class="list-group-items p-0 mb-1">
-						<li class="list-group-item">Language: <span>English</span></li>
-						<li class="list-group-item">Status: <span class="text-danger">Ended</span></li>
-						<li class="list-group-item">RunTime: <span>60Min</span></li>
-						<li class="list-group-item">Premiered: <span>Fri Oct 18 2019</span></li>
-						<li class="list-group-item">Type: <span>Scripted</span></li>
-					</ul>
-					<button
-						class="btn summbtn btn-dark w-100 mb-2 d-flex justify-content-between align-items-center">Story
-						Summary
-						<img src="assets/expand_more_white_36dp.svg" alt="expand more" class="float-end">
-					</button>
-				</div>
-			</div>
-			<div class="row summ d-none">
-				<p class="lead mt-2"><b>Looking for Alaska</b> thrusts us into the perspective of Miles "Pudge"
-					Halter
-					who
-					is done with his safe life at home. His whole life has been one big non-event, and his
-					obsession
-					with famous last words has only made him crave "the Great Perhaps" even more (Francois
-					Rabelais,
-					poet). He heads off to the sometimes crazy and anything-but-boring world of Culver Creek
-					Boarding
-					School, and his life becomes the opposite of safe. Because down the hall is Alaska Young.
-					The
-					gorgeous, clever, funny, sexy, self-destructive, screwed up, and utterly fascinating Alaska
-					Young.
-					She is an event unto herself. She pulls Pudge into her world, launches him into the Great
-					Perhaps,
-					and steals his heart. Then. . . After. Nothing is ever the same.</p>
-			</div>
-		</section>
-		<div class="btn-group-vertical ps-2 font-monospace" role="group">
-			<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-				aria-expanded="false">
-				Season <span class="badge bg-dark">1</span>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark font-monospace">
+		<div class="container-fluid">
+			<a class="navbar-brand h1 mb-0" href="#">TvGram🍿</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
 			</button>
-			<ul class="dropdown-menu p-1" aria-labelledby="btnGroupDrop1">
-				<p class="text-center">No More Seasons!</p>
-				<!-- <li>
-					<button class="dropdown-item btn btn-outline-primary mb-2">1</button>
-				</li>
-				<li>
-					<button class="dropdown-item btn btn-outline-primary mb-2">1</button>
-				</li>
-				<li>
-					<button class="dropdown-item btn btn-outline-primary mb-2 active">1</button>
-				</li>
-				<li>
-					<button class="dropdown-item btn btn-outline-primary mb-2">1</button>
-				</li> -->
-			</ul>
-		</div>
-		<section class="episodes container mt-2">
-			<div class="card mb-3 p-2">
-				<div class="row g-0 align-items-center border-bottom">
-					<div class="col-md-4">
-						<img src="https://static.tvmaze.com/uploads/images/medium_landscape/216/540337.jpg"
-							class="img-fluid rounded shadow ms-3 mb-3" alt="Show Poster">
-					</div>
-					<div class="col-md-8">
-						<ul class="list-items font-monospace ps-1">
-							<li class="list-group-item">Title: <span>Famous Last Words</span></li>
-							<li class="list-group-item">First Air: <span>Fri Oct 18 2019</span></li>
-							<li class="list-group-item">Episode: <span>1</span></li>
-							<li class="list-group-item">Season: <span>1</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card-body p-1">
-							<p class="card-text">
-								Miles strikes up a friendship with his roommate Chip "The Colonel" Martin and fellow
-								classmate Takumi, who introduce him to the various characters around the school,
-								including their enemies the Weekday Warriors and the dean Mr Starnes, better known by
-								students as The Eagle. But when Miles meets The Colonel's best friend Alaska Young, her
-								whirlwind personality leaves him smitten. Happy to have finally found a place where he
-								belongs, it's the start of the adventure Miles has been craving.
-							</p>
-						</div>
-					</div>
-				</div>
+			<div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+				<form class=" input-group font-monospace mt-2" style="max-width: 36em;">
+					<input type="text" class="form-control" placeholder="Mr. Robot" name="showname" autocomplete="off"
+						required>
+					<button class="btn btn-dark" type="submit" id="srchBtn"><img src="assets/searchicon.svg"
+							alt="searchIcon"></button>
+				</form>
 			</div>
+		</div>
+	</nav>
+
+
+	<main class="container show-container mb-4 p-1" style="max-width: 46em;">
+
+		<section class="btns">
+
+		</section>
+		<section class="episodes container mt-2">
+
 		</section>
 
-		<!-- https://static.tvmaze.com/uploads/images/medium_landscape/216/540337.jpg -->
-		<!-- 
-		Miles strikes up a friendship with his roommate Chip \"The Colonel\" Martin and fellow
-								classmate Takumi, who introduce him to the various characters around the school,
-								including their enemies the Weekday Warriors and the dean Mr Starnes, better known by
-								students as The Eagle. But when Miles meets The Colonel's best friend Alaska Young, her
-								whirlwind personality leaves him smitten. Happy to have finally found a place where he
-								belongs, it's the start of the adventure Miles has been craving. -->
 	</main>
+
 
 
 </body>
@@ -134,6 +49,6 @@
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/static/app.js"></script>
+<script type="module" src="/static/app.js"></script>
 
 </html>
