@@ -1,7 +1,6 @@
 import {RequestInfo,RequestSeasonEpisode,RequestSeasons} from './tvgram.js'
 
-
-
+//General Grabing
 const searchForm = document.querySelector('.input-group')
 const showContainer = document.querySelector('.show-container')
 const btnContainer = document.querySelector('.btns')
@@ -11,15 +10,18 @@ const EpisodeContainer = document.querySelector('.episodes')
 searchForm.addEventListener('submit',async function(evt){
 	evt.preventDefault()
 	const{showname} = this.elements;
+
 	let info =  await RequestInfo(showname.value)
 	let seasonsBtn = await RenderSeasonsBtn(info.id)
-
+	//Adding Show info and removing the previous one's
 	showContainer.removeChild(showContainer.firstChild)
 	showContainer.prepend(RenderInfo(info))
 
+	//Adding Season Buttons and removing he previous one's
 	btnContainer.removeChild(btnContainer.firstChild)
 	btnContainer.append(seasonsBtn.buttons)
 
+	//Adding Episodes and removing the prvious one's
 	EpisodeContainer.removeChild(EpisodeContainer.firstChild)
 	await RenderEpisodes(seasonsBtn.firstSeasonid)
 
@@ -29,7 +31,7 @@ searchForm.addEventListener('submit',async function(evt){
 })
 
 showContainer.addEventListener('click', function(evt){
-
+	// sbtn is "Season Button", in dropdown menu in between episodeContainer and InfoContainer
     if(evt.target.classList.contains('sbtn')){
 		let spanBtn = showContainer.querySelector('#btnGroupDrop1').querySelector('span');
 		spanBtn.textContent = evt.target.textContent
@@ -52,7 +54,7 @@ showContainer.addEventListener('click', function(evt){
     if(data.status !== 'Ended'){
         textCol = 'text-success'
     }
-	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found'
+	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found' //Default image if correct not found!
 	if(data.image !== null){
 		img = data.image.medium;
 	}
@@ -91,6 +93,9 @@ showContainer.addEventListener('click', function(evt){
 	
     `
 	return dataString;
+	/*
+	This function returns HTML Element String of show info such as status, air date and so on!
+	*/
 }
 
 async function RenderSeasonsBtn(showId){
@@ -119,16 +124,21 @@ async function RenderSeasonsBtn(showId){
 			</button>
 	`
 	btnGroup.append(ul)
-	return {'buttons':btnGroup, firstSeasonid:data[0].id}
+	return {'buttons':btnGroup, firstSeasonid:data[0].id} 
+	/* buttons property contains div of season number button's markup!
+		"FirstSeasonid" contains current show's first season id in order to show the first seasons's episode on search!
+		
+	*/
 }
 
 async function RenderEpisodes(sid){
+	//sid is short for "SeasonID"
     const data = await RequestSeasonEpisode(sid)
 	
     let dataString = ''
     for(let item of data){
 
-	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found'
+	let img = 'http://placehold.jp/24/1c1f23/ffffff/250x50.png?text=no+image+found' // Some episodes don't have image so that is default!
 	if(item.image !== null){
 		img = item.image.medium;
 	}
@@ -162,19 +172,7 @@ async function RenderEpisodes(sid){
     `
     dataString += itemString;
     }
-	EpisodeContainer.innerHTML = dataString
+	EpisodeContainer.innerHTML = dataString //This contains Episode card HTML markup!
 }
 
 
-// function LoadingScreen(time,container,text){
-// 	let dataString = `
-// 		<div class="container rounded d-flex flex-column align-items-center align-middle">
-// 				<img src="assets/1479.gif" alt="">
-// 				<p class="text-center">${text}!</p>
-// 			</div>
-// 	`
-// 	container.innerHTML = dataString
-// 	setTimeout(() => {
-// 		container.innerHTML = ''; 
-// 	}, time);
-// }
