@@ -1,9 +1,0 @@
-.icnrote {
-  transform: rotate(180deg);
-}
-
-@media only screen and (max-width: 768px) {
-  .info {
-    text-align: center;
-  }
-}

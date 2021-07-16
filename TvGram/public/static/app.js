@@ -49,7 +49,7 @@ showContainer.addEventListener('click', function(evt){
 
 
 
- function RenderInfo(data){
+function RenderInfo(data){
     let textCol = 'text-danger'
     if(data.status !== 'Ended'){
         textCol = 'text-success'
