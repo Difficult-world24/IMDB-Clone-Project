@@ -19,13 +19,16 @@
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-				<form class=" input-group font-monospace mt-2" style="max-width: 36em;">
-					<input type="text" class="form-control" placeholder="Mr. Robot" name="showname" autocomplete="off"
+			<div class="collapse navbar-collapse show justify-content-start" id="navbarNavDropdown">
+				<div class="w-100 d-flex justify-content-center justify-content-lg-end">
+
+					<form class="input-group font-monospace mt-2" style="max-width: 36em;">
+						<input type="text" class="form-control" placeholder="Mr. Robot" name="showname" autocomplete="off"
 						required>
-					<button class="btn btn-dark" type="submit" id="srchBtn"><img src="assets/searchicon.svg"
+						<button class="btn btn-dark" type="submit" id="srchBtn"><img src="assets/searchicon.svg"
 							alt="searchIcon"></button>
-				</form>
+						</form>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -40,7 +43,7 @@
 
 	</main>
 
-	<footer class="bg-dark text-light p-2 w-100">
+	<footer id="footer" class="bg-dark text-light p-2 w-100">
 		<p class="lead text-center">Thank you <a href="https://www.tvmaze.com/" target="_blank">TvMaze</a> and your
 			public <a href="https://www.tvmaze.com/api" target="_blank">API</a>
 		</p>
