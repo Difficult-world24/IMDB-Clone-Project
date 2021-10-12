@@ -33,9 +33,3 @@
 			}
 	}
 
-
-// module.export = {
-// 	RequestInfo,
-// 	RequestSeasons,
-// 	RequestSeasonEpisode
-// }

@@ -31,4 +31,8 @@ Above commands should Install all the required packages.
 ### Finally Running The App
 ```
 node server.js
+
+Site is working visit at:http://localhost:8080
 ```
+
+#### Now the app is running locally on you're machine. you can visit on this address: `localhost:8080`. On you're browser.

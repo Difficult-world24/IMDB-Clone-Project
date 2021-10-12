@@ -7,11 +7,15 @@ const btnContainer = document.querySelector('.btns')
 const EpisodeContainer = document.querySelector('.episodes')
 
 
-searchForm.addEventListener('submit',async function(evt){
-	evt.preventDefault()
-	const{showname} = this.elements;
 
-	let info =  await RequestInfo(showname.value)
+
+
+
+
+
+async function GetShowInfo(showname){
+
+	let info =  await RequestInfo(showname)
 	let seasonsBtn = await RenderSeasonsBtn(info.id)
 	//Adding Show info and removing the previous one's
 	showContainer.removeChild(showContainer.firstChild)
@@ -25,10 +29,18 @@ searchForm.addEventListener('submit',async function(evt){
 	EpisodeContainer.removeChild(EpisodeContainer.firstChild)
 	await RenderEpisodes(seasonsBtn.firstSeasonid)
 
+
+}
+
+GetShowInfo('Mr robot')
+
+searchForm.addEventListener('submit',function(evt){
+	evt.preventDefault()
+	const{showname} = this.elements;
+	GetShowInfo(showname.value)
 	showname.value = ''
-
-
 })
+
 
 showContainer.addEventListener('click', function(evt){
 	// sbtn is "Season Button", in dropdown menu in between episodeContainer and InfoContainer
@@ -148,7 +160,7 @@ async function RenderEpisodes(sid){
 				<div class="row g-0 align-items-center border-bottom">
 					<div class="col-md-4">
 						<img src="${img}"
-							class="img-fluid rounded shadow ms-3 mb-3" alt="Show Poster">
+							class="img-fluid rounded shadow ms-3 mb-3" alt="Episode Poster">
 					</div>
 					<div class="col-md-8">
 						<ul class="list-items font-monospace ps-1">
